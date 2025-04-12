@@ -1,5 +1,5 @@
 "use client";
-
+import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 
 const featureOrder = [
@@ -20,15 +20,21 @@ const ClinicalForm = () => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
+    console.log(`Changed: ${name} = ${value}`); // Debugging line
     setFormData((prev) => ({
       ...prev,
       [name]: value,
     }));
   };
 
+  const router = useRouter();
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+    console.log("Submitting form data:", formData); // Debugging line
+
     try {
+      // Call Flask API
       const res = await fetch("http://localhost:5000/predict", {
         method: "POST",
         headers: {
@@ -36,9 +42,19 @@ const ClinicalForm = () => {
         },
         body: JSON.stringify(formData),
       });
-
+  
       const data = await res.json();
-      setPrediction(data.prediction || "No result");
+      const result = data.prediction || "No result";
+  
+      // Set prediction for current component
+      setPrediction(result);
+  
+      // Save to localStorage for next step
+      localStorage.setItem("clinicalData", JSON.stringify(formData));
+      localStorage.setItem("pcosPrediction", result);
+  
+      // Optional: Navigate to the recommendations page
+      router.push("/recommend");
     } catch (error) {
       console.error("Prediction error:", error);
       setPrediction("Server error");
@@ -52,10 +68,7 @@ const ClinicalForm = () => {
           PCOS Clinical Prediction Form
         </h1>
 
-        <form
-          onSubmit={handleSubmit}
-          className="grid grid-cols-1 sm:grid-cols-2 gap-6"
-        >
+        <form onSubmit={handleSubmit} className="grid grid-cols-1 sm:grid-cols-2 gap-6">
           {featureOrder.map((feature, idx) => (
             <div key={idx} className="flex flex-col">
               <label className="text-sm font-semibold text-gray-700 mb-1">
