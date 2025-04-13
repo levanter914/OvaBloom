@@ -77,7 +77,7 @@ const ClinicalForm = () => {
               <input
                 type="text"
                 name={feature}
-                onChange={handleChange}
+                cdonChange={handleChange}
                 className="border border-black w-full p-2.5 rounded-full focus:outline-none focus:ring-2 focus:ring-pink-400 bg-pink-50"
                 placeholder={`Enter ${feature}`}
               />

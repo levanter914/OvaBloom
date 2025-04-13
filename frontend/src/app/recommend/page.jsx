@@ -29,12 +29,12 @@ export default function RecommendPage() {
     return (
         <div className="min-h-screen bg-[#FFF0F5]">
             <Header />
-            <div className="max-w-3xl mx-auto py-10 px-4">
-                <h1 className="text-3xl font-bold text-pink-600 mb-4">
+            <div className="max-w-3xl mx-auto py-8 px-4">
+                <h1 className="text-4xl font-bold text-pink-600 mb-4">
                     Your Personalized Wellness Plan
                 </h1>
                 {recommendation ? (
-                    <pre className="whitespace-pre-wrap text-gray-800 bg-pink-50 p-4 rounded-xl shadow">
+                    <pre className="whitespace-pre-wrap text-gray-800 bg-white p-4 rounded-xl shadow">
                         {recommendation}
                     </pre>
                 ) : (
