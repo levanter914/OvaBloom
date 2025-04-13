@@ -12,7 +12,8 @@
     "next": "15.3.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
-    "react-responsive-carousel": "^3.2.23"
+    "react-responsive-carousel": "^3.2.23",
+    "remove-markdown": "^0.6.0"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
